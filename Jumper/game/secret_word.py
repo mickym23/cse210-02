@@ -1,19 +1,18 @@
-from msilib.schema import ServiceControl
 import random
 
-
+from game.terminal_service import TerminalService as _ts
 class Secret_word:
     """The randomly picked word. 
 
     The responsibility of SecretWord is to randomly select the secret word. 
 
     Attributes:
-        words (list): list of words to pick the random secret word.
-        secret_word: the randomly picked secret word
-        self._words: list of words to randomly pick the secret word from
-        self.final_display:The word to be displayed after the letter guesses of the secret word
-        self._chances:The number of times of play time the user has - helps determine type of parachute stick man to display
-        _is_playing:keeps track if the game is still in play or not and feeds back this information to the director class
+        words (list): List of words to pick the random secret word.
+        secret_word: The randomly picked secret word
+        self._words: List of words to randomly pick the secret word from
+        self.final_display: The word to be displayed after the letter guesses of the secret word
+        self._chances: The number of times of play time the user has - helps determine type of parachute stick man to display
+        _is_playing: Keeps track if the game is still in play or not and feeds back this information to the director class
     """
 
     def __init__(self):
@@ -22,55 +21,65 @@ class Secret_word:
         Args:
             self (SecretWord): An instance of Secret_word.
         """
-        self._words = ["one", "two", "four", "five", "six", "eight", "nine", "ten"]
-        # self._secret_word = random.choice(self._words)
-        self._secret_word = "one"
+        self._words = ["one", "two", "four", "five", "six", "eight", "nine", "ten", "blue", "red", "green", "purple", "yellow", "black", "rugby", "golf", "cricket", "football", "soccer", "pool", "darts", "poker", "dominoes", "cards", "joker", "ace", "spades", "gray", "grey", "orange", "violet"]
+        self._secret_word = random.choice(self._words)
         self._chances = 4
         self.final_display = ["_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_"]
         self._is_playing = True
 
     def check_letter(self, guesser):
-        """checks if the picked letter is in the randomly picked secret word
+        """
+        Overview: 
+            Checks if the picked letter is in the randomly picked secret word
 
         Args:
-            self (Hider): An instance of Hider.
+            self (Secret_word): An instance of Secret_word.
+            guesser: An instance of the guesser class.
         Returns:
-            a display of the selected word and closes the game if all letters are guessed right
+            A display of the selected word and closes the game if all letters are guessed right
             or when the players chances/parachute wings are completed
         """
         guessed_letter = guesser.get_letter()
 
         # making a copy of the secret word that will displayed and changed as game flows
         secret_word2 = self._secret_word
-        secret_word_as_list = list(secret_word2)
 
         length = len(self._secret_word)
-        # print(f"length of guess word is {length}")
+
         show_word = []
 
         i = 0
         while i < length:
             show_word.append("_") 
             i = i + 1
-            
-        # print(show_word)
 
         if guessed_letter in self._secret_word:
-            # print("The guessed letter is in secret word")
+            
+            # Creates a list with the indices of characters that match the guessed letter
+            letter_indexes = self._find_index(guessed_letter, self._secret_word)
 
-            index_of_guessed_letter = secret_word_as_list.index(guessed_letter)
-            # print(index_of_guessed_letter)
-            show_word[index_of_guessed_letter] = guessed_letter
-            self.final_display[index_of_guessed_letter] = guessed_letter
+            # Running a loop which fills the list blanks for each index that matches
+            for i in letter_indexes:
+                show_word[i] = guessed_letter
+                self.final_display[i] = guessed_letter
 
+            # Shorten the list to match the word
             f_d = self.final_display[:length]
-            print(f_d)
+            
+            word_secret_output = '' 
 
+            # Word output, initially with blanks
+            for blank in f_d:
+              word_secret_output += ' ' + blank
+            print(f'Word: {word_secret_output}')
+
+            # list of phrases to output when the user wins
+            win_phrases = ['Congratulations! You won!', 'You are a Jumper guru. Well done!', 'You\'re amazing! You won!', 'You make it look easy, congrats! You won!']
+
+            # Print phrase when user wins
             if (f_d == list(self._secret_word)):
-                print()
-                print("you won!")
+                print(f'\n{random.choice(win_phrases)}')
                 self._is_playing = False
-
             else:
                 if (self._chances == 4):
                     print()
@@ -116,20 +125,26 @@ class Secret_word:
                     self._is_playing = False
 
         else:
-            print("\nThe guessed letter is not is in secret word.")
-
-            # print the current word containing the already guesses letters
             f_d = self.final_display[:length]
-            print(f_d)
+            
+            word_secret_output = '' 
+
+            # Word output initially, with blanks
+            for space in f_d:
+              word_secret_output += ' ' + space + ' '
+            
+            print(f'Word: {word_secret_output}')
+
+            print("\nNo! The your guessed letter is not in the secret word.")
 
             # reduces chances by 1
             self._chances = self._chances - 1
             if(self._chances == 0):
-                print("You have run out of your guesses(chances).")
+                print("You have run out of your guesses.")
             elif(self._chances == 1):
-                print(f"{self._chances} more guess(chance) remaining.")
+                print(f"You have {self._chances} more guess remaining.")
             else:
-                print(f"{self._chances} more guesses(chances) remaining.")
+                print(f"You have {self._chances} more guesses remaining.")
 
             if (self._chances == 4 ):
                 print()
@@ -142,10 +157,9 @@ class Secret_word:
                 print("   / \ ")
                 print("\n^^^^^^^^^")
 
-                # print(" / ___  \")
             elif (self._chances == 3):
                 print()
-                print(" / ___ \\")
+                print(" / ___ \ ")
                 print(" \     /")
                 print("  \   /")
                 print("    0        ")
@@ -177,17 +191,45 @@ class Secret_word:
                 print("\n^^^^^^^^^")
 
                 self._is_playing = False
-                
- 
+
+              
+    def _find_index(self, letter, word):
+        """
+        Overview: 
+            Finds the characters in a word that matches a given letter.
+
+        Args:
+            self (Secret_word): An instance of Secret_word.
+            letter: An input letter that will be checked.
+            word: The given word that will be checked for the relevant letter
+        
+        Returns:
+            A list of indices that match the letter
+        """
+
+        lst = []
+
+        # Creates variables, i, ch, and creates an object of the word 
+        for i,ch in enumerate(word):
+
+            # If the input letter equals a character of
+            #  the word, it's index is added to the list
+            if letter == ch:
+                lst.append(i)
+        return lst
+
+    def _reset(self):
+        """
+        Overview: 
+            Resets the class to its initial values - used when players want to play again
+
+        Args:
+            self (Secret_word): An instance of Secret_word.
+        """
+        self._secret_word = random.choice(self._words)
+        self._chances = 4
+        self.final_display = ["_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_"]
+        self._is_playing = True
 
 
-
-        # debugging code
-        # if guesser.get_letter() == "a":
-        #     print("a is here")
-        #     if guessed_letter in self._secret_word:
-        #         print("guessed letter is in secret word")
-        #     else:
-        #         print("guessed letter is not is in secret word")
-        # else:
-        #     print("not here!!")
+    

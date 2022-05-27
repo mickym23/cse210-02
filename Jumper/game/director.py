@@ -2,7 +2,6 @@ from game.terminal_service import TerminalService
 from game.secret_word import Secret_word
 from game.guesser import Guesser
 
-
 class Director:
     """A person who directs the game. 
     
@@ -70,17 +69,39 @@ class Director:
         self._secret_word.check_letter(self._guesser)
         
     def _outputs(self):
+        """
+        Overview:
+            Checks if the user is still playing and outputs appropriately.
+
+        Args:
+            self (Director): An instance of Director.
+        """
         self._is_playing = self._secret_word._is_playing
         if(self._is_playing == True):
             print("")
         else:
             print()
-            print("Game Over. -- Press Start to Play Again!-- ")
+            play_again = self._terminal_service.read_letter("Do you want to play again? (y/n): ")
+
+            if play_again.strip().lower() == 'y':
+                self._is_playing = True
+                self._secret_word._reset()
+                self.start_game()
+            else: 
+                self._terminal_service.write_text('Thank you for playing!\n')
+
+
   
     def welcome_display(self):
+        """
+        Overview:
+            This is the initial welcome board that introduces the new player and lets them know what they are looking out for.
+
+        Args:
+            self (Director): An instance of Director.
+        """
         # making a copy of the secret word that will displayed and changed as game flows
         secret_word2 = self._secret_word._secret_word
-        secret_word_as_list = list(secret_word2)
 
         length = len(secret_word2)
         # print(f"length of guess word is {length}")
@@ -91,8 +112,15 @@ class Director:
             show_word.append("_")
             i = i + 1
 
-        print(f"\nWelcome To The Jumper Game! -- Guess a letter that is part of the {length} lettered word below --")
-        print(show_word)
+        print(f"\nWelcome To The Jumper Game!\nYour mission: Guess a letter that is part of the {length} lettered word below!")
+        print() # blank line
+
+        word_secret_output = '' 
+
+        for space in show_word:
+            word_secret_output += ' ' + space
+        
+        print(f'Word: {word_secret_output}')
 
         print()
         print("   ___  ")

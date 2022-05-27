@@ -1,5 +1,3 @@
-import random
-
 class Guesser:
     """The person guessing the word. 
     
@@ -17,21 +15,22 @@ class Guesser:
         self._guessed_letter = " "
 
     def get_letter(self):
-        """Gets the current location.
+        """
+        Overview: 
+            Getter method for the user's letter that is guessed.
         
         Returns:
-            string: The current guessed letter,
+            string: The current guessed letter
         """
         return self._guessed_letter
         
-        
-
-
     def update_new_guessed_letter(self, new_guessed_letter):
-        """Gets the guessed word.
+        """
+        Overview:
+            Setter method for the letter that will be guessed. 
         
         Returns:
-            string: The guessed word
+            N/A
         """
         self._guessed_letter = new_guessed_letter
 
