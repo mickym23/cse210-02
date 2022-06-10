@@ -64,7 +64,7 @@ class Director:
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
 
-     
+
 
         
         for artifact in artifacts:
@@ -85,8 +85,13 @@ class Director:
                 self._gain_or_loose_point_display = message
                 banner.set_text(message)
                 # banner.set_text(message + " .Total points are: " + str(self._total_score))
-                
-        
+
+            current_artifact_position = artifact.get_position()
+            artifact.position = artifact.falling_artifact(current_artifact_position)
+            artifact.move_next(900, 600)
+            
+
+
 
 
     def _do_outputs(self, cast):

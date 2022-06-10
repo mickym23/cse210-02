@@ -29,3 +29,7 @@ class Artifact(Actor):
             message (string): The given message.
         """
         self._message = message
+
+    def falling_artifact(self, position):
+        position._y += 1
+        return position

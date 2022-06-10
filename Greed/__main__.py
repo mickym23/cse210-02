@@ -50,7 +50,7 @@ def main():
 
     # create the robot
     x = int(MAX_X / 2)
-    y = int(MAX_Y / 2)
+    y = int(MAX_Y)
     position = Point(x, y)
 
     robot = Actor()
@@ -73,8 +73,15 @@ def main():
 
         x = random.randint(1, COLS - 1)
         y = random.randint(1, ROWS - 1)
+
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
+
+        # x2 = (1, COLS - 1)
+        # y2 = (1, ROWS - 1)
+
+        # velocity = Point(x2, y2)
+        # velocity = velocity.scale(CELL_SIZE)
 
         r = random.randint(0, 255)
         g = random.randint(0, 255)
@@ -87,6 +94,7 @@ def main():
         artifact.set_color(color)
         artifact.set_position(position)
         artifact.set_message(message)
+        artifact.move_next(MAX_X, MAX_Y)
         cast.add_actor("artifacts", artifact)
 
         # ROCKS ARTIFACTS
@@ -98,9 +106,15 @@ def main():
 
         x = random.randint(1, COLS - 1)
         y = random.randint(1, ROWS - 1)
+
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
 
+        # x2 = (1, COLS - 1)
+        # y2 = (1, ROWS - 1)
+
+        # velocity = Point(x2, y2)
+        # velocity = velocity.scale(CELL_SIZE)
 
         r = random.randint(0, 255)
         g = random.randint(0, 255)
@@ -114,9 +128,9 @@ def main():
         artifact.set_color(color)
         artifact.set_position(position)
         artifact.set_message(message)
+        artifact.move_next(MAX_X, MAX_Y)
         cast.add_actor("artifacts", artifact)
-
-        
+   
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
     video_service = VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
