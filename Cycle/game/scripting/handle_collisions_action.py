@@ -60,7 +60,7 @@ class HandleCollisionsAction(Action):
         
         for segment in segments:
             if head.get_position().equals(segment.get_position()):
-                self._is_game_over = True
+                self._is_game_over = False
 
     def _handle_snake_collision(self, cast):
         """Sets the game over flag if the snake collides with the other snake.
@@ -76,12 +76,15 @@ class HandleCollisionsAction(Action):
         head2 = snake2.get_segments()[0]
         segments2 = snake2.get_segments()[1:]
 
+
         for segment in segments:
             if head2.get_position().equals(segment.get_position()):
+                print('YESSS!!!!')
                 self._is_game_over = True
                 
         for segment in segments2:
             if head.get_position().equals(segment.get_position()):
+                print('YESSS!!!!')
                 self._is_game_over = True
         
     def _handle_game_over(self, cast):
