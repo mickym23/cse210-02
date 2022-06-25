@@ -60,46 +60,7 @@ class ControlActorsAction(Action):
 
             snake = cast.get_first_actor("snakes")
             snake.grow_tail(1)
-
-
-        ###################
-        #     Snake 2     #
-        ###################
-        # left
-        if self._keyboard_service.is_key_down('j'):
-            self._direction = Point(-constants.CELL_SIZE, 0)
-
-            snake2 = cast.get_first_actor("snakes2")
-            snake2.grow_tail(1)
             
-        
-        # right
-        if self._keyboard_service.is_key_down('l'):
-            self._direction = Point(constants.CELL_SIZE, 0)
-
-            snake2 = cast.get_first_actor("snakes2")
-            snake2.grow_tail(1)
-        
-        # up
-        if self._keyboard_service.is_key_down('i'):
-            self._direction = Point(0, -constants.CELL_SIZE)
-
-            snake2 = cast.get_first_actor("snakes2")
-            snake2.grow_tail(1)
-           
-        
-        # down
-        if self._keyboard_service.is_key_down('k'):
-            self._direction = Point(0, constants.CELL_SIZE)
-
-            snake2 = cast.get_first_actor("snakes2")
-            snake2.grow_tail(1)
-
-           
-        
         snake = cast.get_first_actor("snakes")
         snake.turn_head(self._direction)
-
-        snake2 = cast.get_first_actor("snakes2")
-        snake2.turn_head(self._direction)
 
