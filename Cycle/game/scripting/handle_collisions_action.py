@@ -30,7 +30,7 @@ class HandleCollisionsAction(Action):
             self._handle_segment_collision(cast)
             self._handle_snake_collision(cast)
             self._handle_game_over(cast)
-         
+
     def _handle_food_collision(self, cast):
         """Updates the score nd moves the food if the snake collides with the food.
         
