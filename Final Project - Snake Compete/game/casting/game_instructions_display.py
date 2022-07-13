@@ -52,3 +52,4 @@ class GameInstructionDisplay(Actor):
             position (Point): The given position.
         """
         self._position = position
+

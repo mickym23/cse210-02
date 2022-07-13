@@ -31,6 +31,7 @@ class DrawActorsAction(Action):
         score = cast.get_first_actor("scores")
         scoreTwo = cast.get_first_actor("scoresTwo")
         GameInstructionDisplay = cast.get_first_actor("GameInstructionDisplay")
+        HelpGuide = cast.get_first_actor("HelpGuide")
 
         # Preparing the game food
         food = cast.get_first_actor("foods")
@@ -56,6 +57,7 @@ class DrawActorsAction(Action):
         self._video_service.draw_actor(score)
         self._video_service.draw_actor(scoreTwo)
         self._video_service.draw_actor(GameInstructionDisplay)
+        self._video_service.draw_actor(HelpGuide)
 
         self._video_service.draw_actors(messages, True)
         self._video_service.flush_buffer()

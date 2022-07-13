@@ -90,3 +90,10 @@ class VideoService:
     def _get_x_offset(self, text, font_size):
         width = pyray.measure_text(text, font_size)
         return int(width / 2)
+
+    def draw_rectangle_menu(self, x=250, y=90, width=400, height=200, color=pyray.GRAY):
+        pyray.draw_rectangle(x, y, width, height, color)
+        pyray.draw_text("HOW TO PLAY", 270, 100, 20, pyray.WHITE)
+        pyray.draw_text("Player 1 moves with W, S, A, D", 270, 130, 20, pyray.WHITE)
+        pyray.draw_text("Player 2 moves with I, J, K, L", 270, 160, 20, pyray.WHITE)
+        pyray.draw_text("Fruit = Points | Touch Opponent = Game Over", 270, 210, 17, pyray.WHITE)
