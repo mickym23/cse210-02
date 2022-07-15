@@ -63,12 +63,14 @@ class HandleCollisionsAction(Action):
         snakeTwo = cast.get_first_actor("snakesTwo")
         headTwo = snakeTwo.get_head()
 
+        # If the first snake's head is in the same position as the food, grow tail, add points, and respawn the food
         if head.get_position().equals(food.get_position()):
             points = food.get_points()
             snake.grow_tail(points)
             score.add_points(points)
             food.reset()
 
+        # If the second snake's head is in the same position as the food, grow tail, add points, and respawn the food
         if headTwo.get_position().equals(food.get_position()):
             points = food.get_points()
             snakeTwo.grow_tail(points)
@@ -139,6 +141,7 @@ class HandleCollisionsAction(Action):
             y = int(160)
             position = Point(x, y)
 
+            # Displays game over message
             message = Actor()
             message.set_text("Game Over! -- Player 2 Wins!! -- ")
             message.set_position(position)
@@ -166,6 +169,7 @@ class HandleCollisionsAction(Action):
             y = int(160)
             position = Point(x, y)
 
+            # Displays game over message
             message = Actor()
             message.set_text("Game Over! -- Player 1 Wins!! -- ")
             message.set_position(position)
@@ -193,6 +197,7 @@ class HandleCollisionsAction(Action):
             y = int(160)
             position = Point(x, y)
 
+            # Displays game over message
             message = Actor()
             message.set_text("Game Over! -- Player 1 Wins!! -- ")
             message.set_position(position)
@@ -220,6 +225,8 @@ class HandleCollisionsAction(Action):
             y = int(160)
             position = Point(x, y)
 
+
+            # Displays game over message
             message = Actor()
             message.set_text("Game Over! -- Player 2 Wins!! -- ")
             message.set_position(position)

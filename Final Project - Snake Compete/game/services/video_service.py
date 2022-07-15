@@ -92,6 +92,17 @@ class VideoService:
         return int(width / 2)
 
     def draw_rectangle_menu(self, x=250, y=90, width=400, height=200, color=pyray.GRAY):
+        """
+        Draws a rectangle to create a help menu with game controls, and basic game overview
+
+        Paramaters: 
+            (self)   Instance of the video_service class
+            (x)      Position on X-axis
+            (y)      Position on Y-axis
+            (width)  Rectangle width
+            (height) Rectangle height
+            (color)  Rectangle color
+        """
         pyray.draw_rectangle(x, y, width, height, color)
         pyray.draw_text("HOW TO PLAY", 270, 100, 20, pyray.WHITE)
         pyray.draw_text("Player 1 moves with W, S, A, D", 270, 130, 20, pyray.WHITE)
