@@ -63,12 +63,14 @@ class HandleCollisionsAction(Action):
         snakeTwo = cast.get_first_actor("snakesTwo")
         headTwo = snakeTwo.get_head()
 
+        # If the first snake's head is in the same position as the food, grow tail, add points, and respawn the food
         if head.get_position().equals(food.get_position()):
             points = food.get_points()
             snake.grow_tail(points)
             score.add_points(points)
             food.reset()
 
+        # If the second snake's head is in the same position as the food, grow tail, add points, and respawn the food
         if headTwo.get_position().equals(food.get_position()):
             points = food.get_points()
             snakeTwo.grow_tail(points)
@@ -110,22 +112,18 @@ class HandleCollisionsAction(Action):
 
         for segment in segments2:
             if head.get_position().equals(segment.get_position()) and score.get_points() < 25:
-                print('YESSS!!!!')
                 self._is_game_over_player_one_lose_default = True
 
         for segment in segments2:
             if head.get_position().equals(segment.get_position()) and score.get_points() >= 25:
-                print('YESSS!!!!')
                 self._is_game_over = True
 
         for segment in segments:
             if head2.get_position().equals(segment.get_position()) and scoreTwo.get_points() < 25:
-                print('YESSS!!!!')
                 self._is_game_over_player_two_lose_default = True
 
         for segment in segments:
             if head2.get_position().equals(segment.get_position()) and scoreTwo.get_points() >= 25:
-                print('YESSS!!!!')
                 self._is_game_over_two = True
 
     def _handle_game_over(self, cast):
@@ -140,13 +138,16 @@ class HandleCollisionsAction(Action):
             food = cast.get_first_actor("foods")
 
             x = int(constants.MAX_X / 2)
-            y = int(constants.MAX_Y / 2)
+            y = int(160)
             position = Point(x, y)
 
+            # Displays game over message
             message = Actor()
             message.set_text("Game Over! -- Player 2 Wins!! -- ")
             message.set_position(position)
+            message.set_font_size(20)
             cast.add_actor("messages", message)
+    
 
             for segment in segments:
                 segment.set_color(constants.WHITE)
@@ -165,13 +166,16 @@ class HandleCollisionsAction(Action):
             food = cast.get_first_actor("foods")
 
             x = int(constants.MAX_X / 2)
-            y = int(constants.MAX_Y / 2)
+            y = int(160)
             position = Point(x, y)
 
+            # Displays game over message
             message = Actor()
             message.set_text("Game Over! -- Player 1 Wins!! -- ")
             message.set_position(position)
+            message.set_font_size(20)
             cast.add_actor("messages", message)
+
 
             for segment in segments:
                 segment.set_color(constants.WHITE)
@@ -190,13 +194,16 @@ class HandleCollisionsAction(Action):
             food = cast.get_first_actor("foods")
 
             x = int(constants.MAX_X / 2)
-            y = int(constants.MAX_Y / 2)
+            y = int(160)
             position = Point(x, y)
 
+            # Displays game over message
             message = Actor()
             message.set_text("Game Over! -- Player 1 Wins!! -- ")
             message.set_position(position)
+            message.set_font_size(20)
             cast.add_actor("messages", message)
+           
 
             for segment in segments:
                 segment.set_color(constants.WHITE)
@@ -215,12 +222,15 @@ class HandleCollisionsAction(Action):
             food = cast.get_first_actor("foods")
 
             x = int(constants.MAX_X / 2)
-            y = int(constants.MAX_Y / 2)
+            y = int(160)
             position = Point(x, y)
 
+
+            # Displays game over message
             message = Actor()
             message.set_text("Game Over! -- Player 2 Wins!! -- ")
             message.set_position(position)
+            message.set_font_size(20)
             cast.add_actor("messages", message)
 
             for segment in segments:
